@@ -1,0 +1,1 @@
+docker run --rm --entrypoint=bash -it python:3.9
