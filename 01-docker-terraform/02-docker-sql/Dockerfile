@@ -2,4 +2,7 @@ FROM python:3.9
 
 RUN pip install pandas pyarrow
 
-ENTRYPOINT [ "bash" ]
+WORKDIR /app
+COPY data-ingest.py data-ingest.py
+
+ENTRYPOINT [ "python", "data-ingest.py" ]
