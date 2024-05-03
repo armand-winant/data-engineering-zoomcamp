@@ -4,3 +4,12 @@ docker run --rm -it <image name>:<image tag>
 # build an image from a docker file in the current directort
 docker build -t test:pandas ./
 docker run --rm -it test:pandas
+
+# configure postgres container
+docker run --rm -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5431:5432 \
+postgres:latest
