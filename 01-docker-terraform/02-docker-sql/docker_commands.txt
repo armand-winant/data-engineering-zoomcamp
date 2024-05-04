@@ -14,3 +14,9 @@ docker run --rm -it \
   -p 5431:5432 \
 postgres:latest
 
+# configure pgadmin container
+docker run --tm -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGAMDIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+dpage4/pgadmin
