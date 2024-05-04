@@ -15,8 +15,22 @@ docker run --rm -it \
 postgres:latest
 
 # configure pgadmin container
-docker run --tm -it \
+docker run --rm -it \
   -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
-  -e PGAMDIN_DEFAULT_PASSWORD="root" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
   -p 8080:80 \
-dpage4/pgadmin
+dpage/pgadmin4
+
+# create a new docker network
+docker network create pg-network
+
+# run postgres container in the network
+docker run --rm -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5431:5432 \
+  --network=pg-network \
+  --name pg-database \
+postgres:latest
