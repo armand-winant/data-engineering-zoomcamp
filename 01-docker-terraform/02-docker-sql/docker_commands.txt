@@ -24,7 +24,7 @@ dpage/pgadmin4
 # create a new docker network
 docker network create pg-network
 
-# run postgres container in the network
+# run postgres & pgadmin container in the network
 docker run --rm -it \
   -e POSTGRES_USER="root" \
   -e POSTGRES_PASSWORD="root" \
@@ -34,3 +34,11 @@ docker run --rm -it \
   --network=pg-network \
   --name pg-database \
 postgres:latest
+
+docker run --rm -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+  --network=pg-network \
+  --name pgadmin \
+dpage/pgadmin4
