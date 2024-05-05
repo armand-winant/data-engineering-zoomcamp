@@ -44,9 +44,9 @@ docker run --rm -it \
 dpage/pgadmin4
 
 
-# run ingest script
+# run parquet data ingest script
 URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
-python data-ingest.py \
+python data-ingest-parquet.py \
   --user="root" \
   --password="root" \
   --host="localhost" \
@@ -55,14 +55,32 @@ python data-ingest.py \
   --table="yellow_taxi_trips" \
   --url=$URL
 
-  # build image and run container for ingest script
-  docker build -t taxi_ingest:v001 -f Dockerfile .
+# build image and run container for parquet ingest script
+docker build -t taxi_ingest:v001 -f Dockerfile_parquet .
 
-  docker run --rm -it taxi_ingest:v001 \
+URL="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+docker run --rm -it \
+  --network=pg-network \
+  taxi_ingest:v001 \
     --user=root \
     --password=root \
-    --host=localhost \
+    --host=pg-database \
     --port=5432 \
     --db=ny_taxi \
     --table=yellow_taxi_trips \
+    --url=$URL 
+
+# build image and run container for csv ingest script
+docker build -t zones_ingest:v001 -f Dockerfile_csv .
+
+URL="https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+docker run --rm -it \
+  --network=pg-network \
+  zones_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pg-database \
+    --port=5432 \
+    --db=ny_taxi \
+    --table=taxi_zones \
     --url=$URL 

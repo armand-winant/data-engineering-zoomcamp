@@ -4,29 +4,6 @@ from sqlalchemy import create_engine
 from time import time
 import argparse
 
-# user = "root"
-# password = "root"
-# host = "localhost"
-# port = 5431
-# db = "ny_taxi"
-
-# local_filename = "ny_taxi_data.parquet"
-# url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
-
-
-# fetch_command = f"curl -s -o {local_filename} {url}"
-# subprocess.run(fetch_command.split())
-# parquet_file = pq.ParquetFile(local_filename)
-
-# engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
-
-# for i, batch in enumerate(parquet_file.iter_batches(batch_size=100000, use_pandas_metadata=True), 1):
-#   t_start = time()
-#   df = batch.to_pandas()
-#   df.to_sql('yellow_taxi_trips', con=engine, if_exists='append', index=False)
-#   print(f"Upload complete: {df.shape[0]} rows uploaded in {(time() - t_start):.3f} seconds.")
-
-
 def main(params):
   user = params.user
   password = params.password
