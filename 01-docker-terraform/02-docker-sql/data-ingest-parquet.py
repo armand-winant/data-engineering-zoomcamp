@@ -14,7 +14,6 @@ def main(params):
   url = params.url
 
   local_filename = "output.parquet"
-  # url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
 
   fetch_command = f"curl -s -o {local_filename} {url}"
   subprocess.run(fetch_command.split())

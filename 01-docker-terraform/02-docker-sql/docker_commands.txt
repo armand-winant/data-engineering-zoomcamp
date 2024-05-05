@@ -68,7 +68,7 @@ docker run --rm -it \
     --port=5432 \
     --db=ny_taxi \
     --table=yellow_taxi_trips \
-    --url=$URL 
+    --url=$URL
 
 # build image and run container for csv ingest script
 docker build -t zones_ingest:v001 -f Dockerfile_csv .
@@ -83,4 +83,4 @@ docker run --rm -it \
     --port=5432 \
     --db=ny_taxi \
     --table=taxi_zones \
-    --url=$URL 
+    --url=$URL
