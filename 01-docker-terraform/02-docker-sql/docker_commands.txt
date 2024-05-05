@@ -84,3 +84,6 @@ docker run --rm -it \
     --db=ny_taxi \
     --table=taxi_zones \
     --url=$URL
+
+# launch docker compose
+docker compose up -d
