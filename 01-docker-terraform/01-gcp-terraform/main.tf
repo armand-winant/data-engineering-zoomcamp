@@ -9,14 +9,15 @@ terraform {
 
 provider "google" {
   credentials = ".keys/my-creds.json"
-  project     = "astral-pursuit-422621-e6"
-  region      = "europe-west3"
+  project     = var.project_id
+  region      = var.project_region
 }
 
 resource "google_storage_bucket" "demo-bucket" {
-  name          = "astral-pursuit-422621-e6-terra-bucket"
-  location      = "EU"
+  name          = var.gcs_bucket_name
+  location      = var.project_location
   force_destroy = true
+  storage_class = var.gcs_bucket_storage_class
 
   lifecycle_rule {
     condition {
@@ -29,8 +30,7 @@ resource "google_storage_bucket" "demo-bucket" {
 }
 
 resource "google_bigquery_dataset" "demo-dataset" {
-  dataset_id    = "demo_dataset"
-  friendly_name = "test"
-  description   = "This is a test description"
-  location      = "EU"
+  dataset_id    = var.bq_dataset_name
+  location      = var.project_location
+  delete_contents_on_destroy = true
 }
