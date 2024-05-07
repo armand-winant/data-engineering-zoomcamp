@@ -8,21 +8,7 @@ terraform {
 }
 
 provider "google" {
-  project = "data-engineering-zoomcamp-armandwinant"
+  credentials = ".keys/my-creds.json"
+  project = "astral-pursuit-422621-e6"
   region  = "europe-west3"
-}
-
-resource "google_storage_bucket" "auto-expire" {
-  name          = "auto-expiring-bucket"
-  location      = "EU"
-  force_destroy = true
-
-  lifecycle_rule {
-    condition {
-      age = 1
-    }
-    action {
-      type = "AbortIncompleteMultipartUpload"
-    }
-  }
 }
