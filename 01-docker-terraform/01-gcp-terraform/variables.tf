@@ -1,3 +1,8 @@
+variable "credentials" {
+  description = "Service account creds file"
+  default = "./.keys/my-creds.json"
+}
+
 variable "project_id" {
   description = "Project ID"
   default = "astral-pursuit-422621-e6"
