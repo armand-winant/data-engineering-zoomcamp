@@ -1,3 +1,5 @@
+import pandas as pd
+
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
@@ -30,7 +32,18 @@ def transform(data, *args, **kwargs):
         'DOLocationID': 'do_location_id'
     }, inplace=True)
 
-    data.vendor_id
+    # standardize column name
+    data.vendor_id = data.vendor_id.astype(pd.Int64Dtype())
+    data.ratecode_id = data.ratecode_id.astype(pd.Int64Dtype())
+    data.pu_location_id = data.pu_location_id.astype(pd.Int64Dtype())
+    data.do_location_id = data.do_location_id.astype(pd.Int64Dtype())
+    data.passenger_count = data.passenger_count.astype(pd.Int64Dtype())
+    data.payment_type = data.payment_type.astype(pd.Int64Dtype())
+    data.trip_type = data.trip_type.astype(pd.Int64Dtype())
+
+    # create columns for partitioning
+    data['lpep_pickup_year'] = data.lpep_pickup_datetime.dt.year
+    data['lpep_pickup_month'] = data.lpep_pickup_datetime.dt.month
 
     return data
 
