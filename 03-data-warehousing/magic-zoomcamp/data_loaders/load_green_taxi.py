@@ -12,7 +12,7 @@ def load_data_from_api(*args, **kwargs):
     """
     Template for loading data from API
     """
-    year_month = '2020-01'
+    year_month = kwargs['execution_date'].strftime("%Y-%m")
     url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_{year_month}.parquet'
 
     return pd.read_parquet(url)

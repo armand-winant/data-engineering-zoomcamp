@@ -45,6 +45,9 @@ def transform(data, *args, **kwargs):
     data['lpep_pickup_year'] = data.lpep_pickup_datetime.dt.year
     data['lpep_pickup_month'] = data.lpep_pickup_datetime.dt.month
 
+    year, month = kwargs['execution_date'].strftime("%Y-%m").split('-')
+    data = data.loc[(data.lpep_pickup_year == int(year)) & (data.lpep_pickup_month == int(month)), :]
+
     return data
 
 
