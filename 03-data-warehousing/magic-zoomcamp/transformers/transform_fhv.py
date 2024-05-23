@@ -21,32 +21,24 @@ def transform(data, *args, **kwargs):
     Returns:
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
-    # remove erroneous data
-    data = data.loc[(data.trip_distance > 0) & (data.passenger_count > 0), :]
-
-    # rename columns for consistency    
+    # rename columns for consistency  
     data.rename(columns={
-        'VendorID': 'vendor_id',
-        'RatecodeID': 'ratecode_id',
-        'PULocationID': 'pu_location_id',
-        'DOLocationID': 'do_location_id'
+        'dropOff_datetime': 'dropoff_datetime',
+        'PUlocationID': 'pu_location_id',
+        'DOlocationID': 'do_location_id'
     }, inplace=True)
 
     # standardize column types
-    data.vendor_id = data.vendor_id.astype(pd.Int64Dtype())
-    data.ratecode_id = data.ratecode_id.astype(pd.Int64Dtype())
     data.pu_location_id = data.pu_location_id.astype(pd.Int64Dtype())
     data.do_location_id = data.do_location_id.astype(pd.Int64Dtype())
-    data.passenger_count = data.passenger_count.astype(pd.Int64Dtype())
-    data.payment_type = data.payment_type.astype(pd.Int64Dtype())
-    data.trip_type = data.trip_type.astype(pd.Int64Dtype())
 
     # create columns for partitioning
-    data['lpep_pickup_year'] = data.lpep_pickup_datetime.dt.year
-    data['lpep_pickup_month'] = data.lpep_pickup_datetime.dt.month
+    data['pickup_year'] = data.pickup_datetime.dt.year
+    data['pickup_month'] = data.pickup_datetime.dt.month
 
     year, month = kwargs['execution_date'].strftime("%Y-%m").split('-')
-    data = data.loc[(data.lpep_pickup_year == int(year)) & (data.lpep_pickup_month == int(month)), :]
+    year, month = [2019, 2]
+    data = data.loc[(data.pickup_year == int(year)) & (data.pickup_month == int(month)), :]
 
     return data
 
