@@ -1,0 +1,10 @@
+biqguery-data-engineering-zoomcamp:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: taxi-rides-ny
+      dataset: dbt_armand_winant
+      threads: 4
+      keyfile: ./.keys/astral-pursuit-422621-e6-4789763eb8fa.json
